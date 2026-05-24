@@ -49,7 +49,7 @@ export function runAudit(formData: FormData): AuditSummary {
   const results: AuditResult[] = []
 
   for (const toolInput of formData.tools) {
-    const result = auditTool(toolInput, formData.teamSize, formData.useCase)
+    const result = auditTool(toolInput, formData.teamSize, formData.useCase, formData)
     results.push(result)
   }
 
@@ -62,7 +62,7 @@ export function runAudit(formData: FormData): AuditSummary {
   }
 }
 
-function auditTool(tool: ToolInput, teamSize: number, useCase: UseCase): AuditResult {
+function auditTool(tool: ToolInput, teamSize: number, useCase: UseCase, formData: FormData): AuditResult {
   const perSeatCost = tool.seats > 0 ? tool.monthlySpend / tool.seats : tool.monthlySpend
 
   // Cursor
