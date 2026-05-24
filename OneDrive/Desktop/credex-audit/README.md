@@ -9,12 +9,7 @@ Built for the Credex Web Development Internship — Round 1.
 
 ---
 
-## Screenshots
 
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
----
 
 ## Quick Start
 
