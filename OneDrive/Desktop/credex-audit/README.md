@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SpendSight — AI Spend Auditor for Startups
 
-## Getting Started
+A free web app that audits your team's AI tool subscriptions and shows you 
+exactly where you're overpaying — in 60 seconds, no login required.
 
-First, run the development server:
+Built for the Credex Web Development Internship — Round 1.
+
+🔗 **Live URL**:https://credex-audit-gamma.vercel.app/
+
+---
+
+## Screenshots
+
+> Add screenshots here after deployment
+
+---
+
+## Quick Start
+
+### Install
+
+```bash
+git clone https://github.com/aaniya22/credex-audit.git
+cd credex-audit
+npm install
+```
+
+### Environment Variables
+
+Create `.env.local` in the root:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+RESEND_API_KEY=your_resend_api_key
+ANTHROPIC_API_KEY=your_anthropic_api_key
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+### Run Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Run Tests
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm test
+```
 
-## Learn More
+### Deploy
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+vercel deploy
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Decisions
 
-## Deploy on Vercel
+1. **Next.js over plain React** — App Router gives us serverless API routes 
+   and easy Vercel deployment in one repo. No separate backend needed.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Deterministic rules over AI for audit logic** — The audit engine uses 
+   hardcoded rules, not an LLM. A finance person needs to agree with the 
+   reasoning. AI is used only for the summary paragraph where creativity helps.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Supabase over Firebase** — Postgres is better for structured audit data 
+   with relational queries. Supabase's free tier is generous and the client 
+   library is excellent.
+
+4. **Email after value, never before** — The audit result is shown instantly 
+   with no gate. Email is only asked for after the user sees their savings. 
+   This follows the assignment brief and maximizes completion rates.
+
+5. **nanoid for share IDs over UUID** — nanoid generates short, URL-friendly 
+   IDs (10 chars) vs UUID's 36 chars. Better for sharing and cleaner URLs.
+
+---
+
+## Who It's For
+
+Startup engineering managers and CTOs paying for 3+ AI tools with no 
+centralized view of spend — who sigh and pay the bill every month without 
+knowing if they're getting value.
